@@ -2,7 +2,7 @@
   <h3 style="margin-top:15px;">写作</h3>
   <a-button type="primary" @click="save" :loading="iconLoading">保存</a-button>
   <a-form :model="formState">
-    <a-form-item label="标题" name="title" :rules="[{ required: true, message: '标题不能为空' }]">
+    <a-form-item label="标题" name="title">
       <a-input v-model:value="formState.title" />
     </a-form-item>
     <p>
@@ -43,7 +43,7 @@ export default defineComponent({
     const iconLoading = ref(false);
 
     // 内容 HTML
-    const valueHtml = ref('<p>hello</p>')
+    const valueHtml = ref('')
 
     const { proxy } = getCurrentInstance()
 
@@ -62,8 +62,8 @@ export default defineComponent({
 
     const save = () => {
       iconLoading.value = true;
-      if (proxy.$func.getVarType(formState.value.title) == "undefined" || formState.value.title == '') {
-        message.info("标题不能为空");
+      if (proxy.$func.getVarType(valueHtml) == "undefined" || valueHtml == '') {
+        message.info("内容不能为空");
         iconLoading.value = false;
       }
       else {
@@ -85,7 +85,7 @@ export default defineComponent({
         else {
           params.append("is_recommend", 0);
         }
-        proxy.$http.post('/ajax/save_blog_ajax/', params).then(res => {
+        proxy.$http.post('/ajax/save_post_ajax/', params).then(res => {
           //console.log(res.data.msg);
           if (res.data.msg == "新建成功") {    //这条提示如果改的话要和后端一起改
             visible.value = true;
@@ -107,7 +107,7 @@ export default defineComponent({
     const visible = ref(false);
     const handleOk = e => {
       visible.value = false;
-      window.location.href = "/blog";
+      window.location.href = "/user";
     };
     return {
       visible,
@@ -123,12 +123,9 @@ export default defineComponent({
   created() {
     // 更多 UEditor 配置，参考 http://fex.baidu.com/ueditor/#start-config
     this.editorConfig = {
-      /*
       toolbars: [
-        ['source', 'undo', 'redo'],
-        ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc','simpleupload']
+        ['source', 'undo', 'redo',  'cleardoc','simpleupload']
       ],
-      */
       UEDITOR_HOME_URL: '/UEditor/', // 访问 UEditor 静态资源的根路径，可参考常见问题1
       lang: 'zh-cn',
       // 初始容器高度

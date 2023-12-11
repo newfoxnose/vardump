@@ -26,7 +26,7 @@ const router = createRouter({
       component: () => import('../components/logout.vue')
     },
     {
-      path: '/user',
+      path: '/user/:page',
       name: 'user',
       component: () => import('../views/UserView.vue')
     },
@@ -36,41 +36,14 @@ const router = createRouter({
       component: () => import('../views/ManageView.vue')
     },
     {
-      path: '/upload',
-      name: 'upload',
-      component: () => import('../views/UploadView.vue')
-    },
-    {
       path: '/reg',
       name: 'reg',
       component: () => import('../views/RegView.vue')
     },
     {
-      path: '/export',
-      name: 'export',
-      component: () => import('../components/export.vue')
-    },
-    {
-      path: '/note',
-      name: 'note',
-      component: () => import('../views/NoteView.vue')
-    },
-    {
-      path: '/qiniu',
-      name: 'qiniu',
-      component: () => import('../views/QiniuView.vue')
-    }
-    ,
-    {
       path: '/profile',
       name: 'profile',
       component: () => import('../views/ProfileView.vue')
-    }
-    ,
-    {
-      path: '/email',
-      name: 'email',
-      component: () => import('../components/email.vue')
     },
     {
       path: '/editpost/:id',
@@ -87,32 +60,16 @@ const router = createRouter({
       path: '/domain',
       name: 'domain',
       component: () => import('../views/DomainView.vue')
-    } ,
+    },
     {
       path: '/redirect',
       name: 'redirect',
       component: () => import('../components/redirect.vue')
-    }  ,
+    },
     {
-      path: '/clear',
-      name: 'clear',
-      component: () => import('../components/clear.vue')
-    } 
-    ,
-    {
-      path: '/blog',
-      name: 'blog',
-      component: () => import('../views/BlogView.vue')
-    }  ,
-    {
-      path: '/editblog/:id',
-      name: 'editblog',
-      component: () => import('../views/EditblogView.vue')
-    } ,
-    {
-      path: '/collection',
-      name: 'collection',
-      component: () => import('../views/CollectionView.vue')
+      path: '/clean',
+      name: 'clean',
+      component: () => import('../components/clean.vue')
     }
   ],
 })

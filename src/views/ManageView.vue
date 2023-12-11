@@ -85,13 +85,7 @@ export default defineComponent({
       }, {
         title: '书签',
         dataIndex: 'amount'
-      }, {
-        title: '采集',
-        dataIndex: 'collection_amount'
-      }, {
-        title: '博文',
-        dataIndex: 'blog_amount'
-      }, {
+      },  {
         title: '操作'
       }],
       columns_addnew: [ {

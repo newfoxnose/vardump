@@ -18,48 +18,13 @@ export default defineComponent({
       <div class="wrapper">
         <nav>
           <span v-if="$cookies.get('token') != null&&$cookies.get('token') != ''">
-            <RouterLink to="/user">书签</RouterLink>
-            <RouterLink to="/collection">采集</RouterLink>
-            <RouterLink to="/note">随手记</RouterLink>
-            <RouterLink to="/qiniu">文件</RouterLink>
-            <RouterLink to="/compose">写作</RouterLink>
-            <a-dropdown style="display:inline !important">
-    <a class="ant-dropdown-link" @click.prevent >
-      更多
-      <DownOutlined />
-    </a>
-    <template #overlay>
-      <a-menu>
-        <a-menu-item>
-          <RouterLink to="/blog">文章</RouterLink>
-        </a-menu-item>
-        <a-menu-item>
-          <RouterLink to="/manage">管理目录</RouterLink>
-        </a-menu-item>
-        <a-menu-item>
-          <RouterLink to="/profile">个人设置</RouterLink>
-        </a-menu-item>
-        <a-menu-item>
-          <RouterLink to="/domain">个人域名设置</RouterLink>
-        </a-menu-item>
-        <a-menu-item>
-          <RouterLink to="/clear">清理七牛云无用图片</RouterLink>
-        </a-menu-item>
-        <a-menu-item>
-          <RouterLink to="/upload">导入书签</RouterLink>
-        </a-menu-item>
-        <a-menu-item>
-          <RouterLink to="/export">导出书签至本地</RouterLink>
-        </a-menu-item>
-        <a-menu-item>
-          <RouterLink to="/email">发送书签至邮箱</RouterLink>
-        </a-menu-item>
-        <a-menu-item>
-          <RouterLink to="/redirect" target="_blank">个人网站</RouterLink>
-        </a-menu-item>
-      </a-menu>
-    </template>
-  </a-dropdown>
+            <RouterLink to="/user/1">图库</RouterLink>
+            <RouterLink to="/compose">新内容</RouterLink>
+            <RouterLink to="/manage">分类</RouterLink>
+            <RouterLink to="/profile">个人设置</RouterLink>
+            <RouterLink to="/domain">域名设置</RouterLink>
+            <RouterLink to="/clean">清理七牛云</RouterLink>
+            <RouterLink to="/redirect" target="_blank">网站</RouterLink>
             <RouterLink to="/logout">退出</RouterLink>
           </span>
           <span v-else>

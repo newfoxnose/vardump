@@ -19,9 +19,8 @@ import VueUeditorWrap from 'vue-ueditor-wrap';
 const app = createApp(App);
 
 /* 配置请求的根路径，远程后端 */
-//axios.defaults.baseURL = "https://bm.o-oo.net.cn";
-//axios.defaults.baseURL = "https://bm.gm.ws";
-axios.defaults.baseURL = "http://img.com";
+axios.defaults.baseURL = "https://imgwall.gm.ws";
+//axios.defaults.baseURL = "http://img.com";
 
 axios.defaults.timeout = 120000;   //axios全局超时时间，单位毫秒，120000等于2分钟
 
