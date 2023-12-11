@@ -10,20 +10,13 @@ export default defineComponent({
     const defaultPercent = ref(5);
     const loadingdone = ref(false);
     const folder_list = ref([])
+    const currentpage=ref(1)
     const items = ref([])
     // ajax 异步获取内容
     onMounted(() => {
-      const interval=setInterval(() => {
-        const percent = defaultPercent.value + Math.round(Math.random()*7+2);
-        defaultPercent.value = percent > 95 ? 95 : percent;
-        if (defaultPercent.value>90){
-          clearInterval(interval);
-        }
-      }, 100)
       let params = new URLSearchParams(); //post内容必须这样传递，不然后台获取不到
       params.append("token", $cookies.get("token"));
       params.append("timestamp", new Date().getTime());
-      params.append("page", router.currentRoute.value.params.page);
       proxy.$http.post("/ajax/get_folder_ajax/", params).then((res) => {
         if (res.data.code == "401") {
           //不在登陆状态
@@ -31,19 +24,36 @@ export default defineComponent({
         }
         folder_list.value = res.data.data.data;
       });
-      proxy.$http.post("/ajax/home_page_ajax/", params).then((res) => {
+      handlepagechange(1);
+    });
+    const handlepagechange = (values) => {
+      const interval=setInterval(() => {
+        const percent = defaultPercent.value + Math.round(Math.random()*7+2);
+        defaultPercent.value = percent > 95 ? 95 : percent;
+        if (defaultPercent.value>90){
+          clearInterval(interval);
+        }
+      }, 100)
+
+      let params = new URLSearchParams(); //post内容必须这样传递，不然后台获取不到
+      params.append("token", $cookies.get("token"));
+      params.append("timestamp", new Date().getTime());
+      
+      proxy.$http.post("/ajax/home_page_ajax/"+currentpage.value, params).then((res) => {
         console.log(res.data);
         items.value = res.data.data.images;
         defaultPercent.value = 100;
         loadingdone.value = true
       });
-    });
+    }
     return {
       folder_list,
       items,
       defaultPercent,
       iconLoading,
-      loadingdone
+      loadingdone,
+      currentpage,
+      handlepagechange
     };
   }
 });
@@ -73,7 +83,7 @@ export default defineComponent({
     <br><RouterLink :to="/editpost/+item.id">编辑</RouterLink></p>
     </div>
   </a-image-preview-group>
-
+  <a-pagination v-model:current="currentpage" :total="50" @change="handlepagechange" show-less-items />
 </template>
 
 <style scoped>
