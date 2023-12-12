@@ -79,6 +79,7 @@ export default defineComponent({
       :title="item.title"
       :is_private="item.is_private"
       :is_recommend="item.is_recommend" class="img-div">
+      <p>{{item.title}}</p>
     <p><a-image v-for="img in item.qiniu_img_arr" :key="img.label" :width="200" :src="img"/>
     <br><RouterLink :to="/editpost/+item.id">编辑</RouterLink></p>
     </div>
