@@ -11,6 +11,8 @@ export default defineComponent({
     const loadingdone = ref(false);
     const folder_list = ref([])
     const currentpage=ref(1)
+    const pagesize=ref(1)
+    const total=ref(1)
     const items = ref([])
     // ajax 异步获取内容
     onMounted(() => {
@@ -41,7 +43,9 @@ export default defineComponent({
       
       proxy.$http.post("/ajax/home_page_ajax/"+currentpage.value, params).then((res) => {
         console.log(res.data);
-        items.value = res.data.data.images;
+        items.value = res.data.data.post;
+        pagesize.value = res.data.data.pagesize;
+        total.value = res.data.data.total;
         defaultPercent.value = 100;
         loadingdone.value = true
       });
@@ -53,6 +57,8 @@ export default defineComponent({
       iconLoading,
       loadingdone,
       currentpage,
+      pagesize,
+      total,
       handlepagechange
     };
   }
@@ -74,17 +80,20 @@ export default defineComponent({
     />
   </div>
   <a-image-preview-group>
-    <div v-for="item in items" :key="item.label" :id="item.id"
+    <div class="img-div" v-for="item in items" :key="item.label" :id="item.id"
       :folder_id="item.folder_id"
       :title="item.title"
       :is_private="item.is_private"
-      :is_recommend="item.is_recommend" class="img-div">
+      :is_recommend="item.is_recommend" >
       <p>{{item.title}}</p>
-    <p><a-image v-for="img in item.qiniu_img_arr" :key="img.label" :width="200" :src="img"/>
+
+    <p><a-image v-for="img in item.img_arr" :key="img.label" :width="200" :src="img"/>
     <br><RouterLink :to="/editpost/+item.id">编辑</RouterLink></p>
     </div>
   </a-image-preview-group>
-  <a-pagination v-model:current="currentpage" :total="50" @change="handlepagechange" show-less-items />
+  <div style="clear:both;">
+  <a-pagination v-model:current="currentpage" v-model:pageSize="pagesize" :total="total" @change="handlepagechange" show-less-items />
+  </div>
 </template>
 
 <style scoped>
