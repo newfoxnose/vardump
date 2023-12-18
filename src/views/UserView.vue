@@ -42,15 +42,33 @@ export default defineComponent({
       params.append("timestamp", new Date().getTime());
       
       proxy.$http.post("/ajax/home_page_ajax/"+currentpage.value, params).then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         items.value = res.data.data.post;
         pagesize.value = res.data.data.pagesize;
         total.value = res.data.data.total;
         defaultPercent.value = 100;
         loadingdone.value = true
       });
-    }
+    };
+    const deletepost= (id,page) => {
+      console.log(id)
+      console.log(page)
+      let params = new URLSearchParams(); //post内容必须这样传递，不然后台获取不到
+      params.append("token", $cookies.get("token"));
+      params.append("timestamp", new Date().getTime());
+      params.append("id", id);
+      params.append("page", page);
+      proxy.$http.post("/ajax/delete_post_ajax/", params).then((res) => {
+        //console.log(res.data);
+        items.value = res.data.data.post;
+        pagesize.value = res.data.data.pagesize;
+        total.value = res.data.data.total;
+        defaultPercent.value = 100;
+        loadingdone.value = true
+      });
+    };
     return {
+      deletepost,
       folder_list,
       items,
       defaultPercent,
@@ -88,7 +106,11 @@ export default defineComponent({
       <p>{{item.title}}</p>
 
     <p><a-image v-for="img in item.img_arr" :key="img.label" :width="200" :src="img"/>
-    <br><RouterLink :to="/editpost/+item.id">编辑</RouterLink></p>
+    <br>
+    <RouterLink :to="/editpost/+item.id">编辑</RouterLink>
+    |
+    <a @click="deletepost(item.id,currentpage)">删除</a>
+  </p>
     </div>
   </a-image-preview-group>
   <div style="clear:both;">
