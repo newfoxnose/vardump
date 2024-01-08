@@ -1,1 +1,0 @@
-import{h as a,k as n,m as s}from"./index-a30e8698.js";const i={setup(){const{proxy:t}=a();n(()=>{let e=new URLSearchParams;e.append("token",$cookies.get("token")),e.append("timestamp",new Date().getTime()),t.$http.post("/ajax/logout_ajax/",e).then(o=>{s.info("已退出"),console.log(o.data)}),$cookies.set("token","","-720h"),window.location.href="/login"})}};export{i as default};
