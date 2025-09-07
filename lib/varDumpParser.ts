@@ -11,6 +11,7 @@ export interface ParsedValue {
   className?: string;
   properties?: { [key: string]: ParsedValue };
   isCollapsed?: boolean;
+  key?: string | number; // 数组元素的键值
 }
 
 export class VarDumpParser {
@@ -287,7 +288,7 @@ export class VarDumpParser {
           children.push({
             ...value,
             key
-          } as ParsedValue & { key: string | number });
+          });
         }
         
         this.skipWhitespace();

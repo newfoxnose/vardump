@@ -1253,13 +1253,16 @@ export function formatTranslation(language: Language, key: TranslationKey, param
       return key
     }
     
+    // 此时text已经被确保是字符串类型
+    let textStr: string = text
+    
     // 替换占位符
     Object.entries(params).forEach(([placeholder, value]) => {
       const regex = new RegExp(`\\{${placeholder}\\}`, 'g')
-      text = text.replace(regex, String(value))
+      textStr = textStr.replace(regex, String(value))
     })
     
-    return text
+    return textStr
   } catch (error) {
     console.error(`格式化翻译失败: ${key} (${language})`, error)
     return key

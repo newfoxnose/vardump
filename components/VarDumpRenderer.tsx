@@ -96,7 +96,7 @@ export default function VarDumpRenderer({ data, level = 0 }: VarDumpRendererProp
                 {item.children.map((child, childIndex) => (
                   <div key={childIndex} className="flex items-start">
                     <span className="text-php-yellow mr-2" style={{ marginLeft: `${indent + 20}px` }}>
-                      [{child.key}]
+                      [{child.key !== undefined ? child.key : childIndex}]
                     </span>
                     <div className="flex-1">
                       {renderValue(child, currentPath, childIndex)}
