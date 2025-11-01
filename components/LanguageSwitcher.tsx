@@ -149,9 +149,11 @@ export default function LanguageSwitcher({
                   </span>
                   <span className="flex-1">{lang.name}</span>
                   {language === lang.code && (
-                    <svg 
+                    <>
+                      {/* 选中标记图标 - 装饰性图标，已通过周围文本描述，使用aria-hidden */}
+                      <svg 
                       className="w-4 h-4" 
-                      fill="currentColor" 
+                      fill="currentColor"
                       viewBox="0 0 20 20"
                       aria-hidden="true"
                     >
@@ -161,6 +163,7 @@ export default function LanguageSwitcher({
                         clipRule="evenodd" 
                       />
                     </svg>
+                    </>
                   )}
                 </button>
               ))}
